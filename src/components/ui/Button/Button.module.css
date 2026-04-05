@@ -1,0 +1,56 @@
+/* src/components/ui/Button/Button.module.css */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+/* Variantes */
+.primary {
+  background: var(--black);
+  color: var(--white);
+}
+
+.primary:hover {
+  background: #2a2929;
+}
+
+.outline {
+  background: transparent;
+  color: var(--black);
+  border: 0.5px solid var(--black);
+}
+
+.outline:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+.white {
+  background: var(--white);
+  color: var(--black);
+}
+
+.white:hover {
+  background: var(--accent-light);
+}
