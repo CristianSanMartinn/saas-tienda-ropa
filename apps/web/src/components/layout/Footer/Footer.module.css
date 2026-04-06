@@ -1,0 +1,135 @@
+/* src/components/layout/Footer/Footer.module.css */
+
+.footer {
+  padding: 60px var(--pad-x) 32px;
+  background: var(--white);
+  border-top: 0.5px solid var(--gray-200);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 48px;
+}
+
+.brand {}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.desc {
+  font-size: 12px;
+  color: var(--gray-600);
+  line-height: 1.9;
+  font-weight: 300;
+  max-width: 240px;
+}
+
+.social {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.socialBtn {
+  width: 32px;
+  height: 32px;
+  border: 0.5px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--gray-600);
+  transition: all 0.2s;
+}
+
+.socialBtn:hover {
+  border-color: var(--black);
+  background: var(--black);
+  color: var(--white);
+}
+
+.col {}
+
+.colTitle {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.colLink {
+  display: block;
+  font-size: 12px;
+  color: var(--gray-600);
+  font-weight: 300;
+  cursor: pointer;
+  transition: color 0.2s;
+  padding: 5px 0;
+}
+
+.colLink:hover {
+  color: var(--black);
+}
+
+.bottom {
+  border-top: 0.5px solid var(--gray-200);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.bottom p {
+  font-size: 11px;
+  color: var(--gray-400);
+  font-weight: 300;
+}
+
+.payments {
+  display: flex;
+  gap: 8px;
+}
+
+.payBadge {
+  padding: 4px 10px;
+  border: 0.5px solid var(--gray-200);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  .brand {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 540px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .brand {
+    grid-column: span 1;
+  }
+  .bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
