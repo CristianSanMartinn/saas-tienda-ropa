@@ -1,0 +1,13 @@
+{
+  "name": "my-turborepo",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:admin\" \"npm run dev:api\"",
+    "dev:web": "cd apps/web && npm run dev",
+    "dev:admin": "cd apps/admin && npm run dev -- --port 5174",
+    "dev:api": "cd apps/api && npm run start:dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
