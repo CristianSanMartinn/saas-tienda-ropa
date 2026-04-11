@@ -1,0 +1,127 @@
+/* src/components/sections/Hero/Hero.module.css */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - var(--nav-h) - var(--bar-h));
+  background: var(--gray-100);
+  overflow: hidden;
+}
+
+/* Columna imagen */
+.imageCol {
+  background: linear-gradient(160deg, #D4C8B5 0%, #B8A990 100%);
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+}
+
+.pattern {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 60px,
+    rgba(255, 255, 255, 0.025) 60px,
+    rgba(255, 255, 255, 0.025) 61px
+  );
+}
+
+.silhouette {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(184, 169, 144, 0.4), transparent);
+}
+
+/* Contenido */
+.content {
+  padding: 80px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.labelLine {
+  display: inline-block;
+  width: 32px;
+  height: 0.5px;
+  background: var(--accent);
+}
+
+.divider {
+  width: 40px;
+  height: 0.5px;
+  background: var(--accent);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5vw, 68px);
+  font-weight: 300;
+  line-height: 1.02;
+  color: var(--black);
+}
+
+.title em {
+  font-style: italic;
+  color: var(--gray-600);
+}
+
+.desc {
+  font-size: 13px;
+  color: var(--gray-600);
+  line-height: 1.9;
+  max-width: 300px;
+  font-weight: 300;
+}
+
+.ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .imageCol {
+    min-height: 50vw;
+  }
+
+  .content {
+    padding: 48px 24px;
+  }
+}
+
+@media (max-width: 540px) {
+  .ctas {
+    flex-direction: column;
+  }
+}
