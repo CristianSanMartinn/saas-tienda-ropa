@@ -20,4 +20,4 @@ import { ProductsModule } from '../products/products.module'
     exports: [OrdersService],
 })
 
-export class OrdersModules {}
+export class OrdersModule {}
