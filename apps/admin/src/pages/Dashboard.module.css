@@ -1,0 +1,206 @@
+/* apps/admin/src/pages/Dashboard.module.css */
+
+.page { display: flex; flex-direction: column; gap: 20px; }
+
+.loadingWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.loadingText {
+  font-size: 13px;
+  color: var(--gray-400);
+}
+
+/* Métricas */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.metricCard {
+  background: var(--white);
+  border: 0.5px solid var(--gray-200);
+  padding: 20px 24px;
+}
+
+.metricLabel {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 8px;
+}
+
+.metricValue {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.metricSub {
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Card */
+.card {
+  background: var(--white);
+  border: 0.5px solid var(--gray-200);
+  padding: 24px;
+}
+
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--black);
+  margin-bottom: 20px;
+}
+
+.empty {
+  font-size: 13px;
+  color: var(--gray-400);
+  text-align: center;
+  padding: 32px 0;
+}
+
+/* Bar chart */
+.barChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 160px;
+  padding-bottom: 32px;
+  position: relative;
+}
+
+.barItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+}
+
+.barTrack {
+  flex: 1;
+  width: 100%;
+  background: var(--gray-100);
+  display: flex;
+  align-items: flex-end;
+}
+
+.barFill {
+  width: 100%;
+  background: var(--black);
+  min-height: 4px;
+  transition: height 0.6s ease;
+}
+
+.barLabel {
+  font-size: 10px;
+  color: var(--gray-400);
+  letter-spacing: 1px;
+}
+
+.barValue {
+  font-size: 9px;
+  color: var(--gray-600);
+  white-space: nowrap;
+}
+
+/* Top list */
+.topList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.topItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 0.5px solid var(--gray-200);
+}
+
+.topItem:last-child { border-bottom: none; }
+
+.topRank {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--gray-300);
+  width: 28px;
+  flex-shrink: 0;
+}
+
+.topInfo { flex: 1; }
+
+.topName {
+  font-size: 13px;
+  color: var(--black);
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+
+.topMeta {
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+/* Tabla */
+.tableWrap { overflow-x: auto; }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.th {
+  padding: 10px 12px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  text-align: left;
+  border-bottom: 0.5px solid var(--gray-200);
+  background: var(--gray-100);
+  white-space: nowrap;
+}
+
+.tr:hover { background: var(--gray-100); }
+
+.td {
+  padding: 12px 12px;
+  font-size: 13px;
+  color: var(--black);
+  border-bottom: 0.5px solid var(--gray-200);
+  vertical-align: middle;
+}
+
+.orderId {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--gray-600);
+}
+
+@media (max-width: 1024px) {
+  .metrics { grid-template-columns: repeat(2, 1fr); }
+  .grid    { grid-template-columns: 1fr; }
+}

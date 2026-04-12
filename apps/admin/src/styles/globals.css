@@ -1,0 +1,46 @@
+/* apps/admin/src/styles/globals.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Outfit:wght@300;400;500&display=swap');
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--black);
+  background: var(--gray-100);
+  overflow-x: hidden;
+}
+
+button { cursor: pointer; font-family: var(--font-body); }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+
+:root {
+  --black:        #111010;
+  --white:        #FAFAF8;
+  --gray-100:     #F5F4F1;
+  --gray-200:     #E8E6E1;
+  --gray-300:     #D0CEC9;
+  --gray-400:     #A8A49C;
+  --gray-600:     #6B6760;
+  --beige:        #EAE6DE;
+  --accent:       #C8B89A;
+  --accent-light: #EDE6DA;
+  --success:      #2D6A4F;
+  --warning:      #B7791F;
+  --danger:       #9B2335;
+  --info:         #2B6CB0;
+
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'Outfit', sans-serif;
+
+  --sidebar-w:    240px;
+  --topbar-h:     60px;
+  --pad-x:        28px;
+}

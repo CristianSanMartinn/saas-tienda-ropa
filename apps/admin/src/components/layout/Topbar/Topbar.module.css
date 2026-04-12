@@ -1,0 +1,90 @@
+/* apps/admin/src/components/layout/Topbar/Topbar.module.css */
+
+.topbar {
+  height: var(--topbar-h);
+  background: var(--white);
+  border-bottom: 0.5px solid var(--gray-200);
+  padding: 0 var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--black);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.searchWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  color: var(--gray-400);
+  pointer-events: none;
+}
+
+.search {
+  height: 36px;
+  padding: 0 16px 0 36px;
+  border: 0.5px solid var(--gray-200);
+  background: var(--gray-100);
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--black);
+  outline: none;
+  width: 220px;
+  transition: border-color 0.2s, width 0.3s;
+}
+
+.search::placeholder {
+  color: var(--gray-400);
+}
+
+.search:focus {
+  border-color: var(--black);
+  width: 280px;
+}
+
+.iconBtn {
+  width: 36px;
+  height: 36px;
+  border: 0.5px solid var(--gray-200);
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-600);
+  position: relative;
+  transition: all 0.2s;
+}
+
+.iconBtn:hover {
+  border-color: var(--black);
+  color: var(--black);
+}
+
+.notifDot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}

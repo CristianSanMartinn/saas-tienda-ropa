@@ -1,0 +1,116 @@
+/* apps/admin/src/pages/Orders.module.css */
+
+.page { display: flex; flex-direction: column; gap: 20px; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 4px;
+}
+
+.count {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.orderId {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--gray-600);
+}
+
+.clientName {
+  font-size: 13px;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+
+.clientEmail {
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+.itemsList { display: flex; flex-direction: column; gap: 2px; }
+
+.itemRow {
+  font-size: 12px;
+  color: var(--gray-600);
+}
+
+.itemMore {
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+.total {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+}
+
+.statusWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statusSelect {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.select {
+  height: 28px;
+  padding: 0 24px 0 8px;
+  border: 0.5px solid var(--gray-200);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--black);
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.select:focus { border-color: var(--black); }
+
+.selectIcon {
+  position: absolute;
+  right: 7px;
+  color: var(--gray-400);
+  pointer-events: none;
+}
+
+.date {
+  font-size: 12px;
+  color: var(--gray-600);
+}
+
+.deleteBtn {
+  background: none;
+  border: 0.5px solid var(--gray-200);
+  padding: 5px 12px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.deleteBtn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}

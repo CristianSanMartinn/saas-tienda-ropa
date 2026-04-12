@@ -1,0 +1,110 @@
+/* apps/admin/src/pages/Login.module.css */
+
+.page {
+  min-height: 100vh;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  background: var(--white);
+  padding: 48px 40px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+.input {
+  height: 44px;
+  padding: 0 16px;
+  border: 0.5px solid var(--gray-300);
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--black);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input:focus {
+  border-color: var(--black);
+}
+
+.error {
+  font-size: 12px;
+  color: var(--danger);
+  text-align: center;
+}
+
+.btn {
+  height: 48px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 4px;
+}
+
+.btn:hover:not(:disabled) {
+  background: #2a2929;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hint {
+  text-align: center;
+  font-size: 11px;
+  color: var(--gray-400);
+  margin-top: 24px;
+}

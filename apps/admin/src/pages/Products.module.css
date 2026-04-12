@@ -1,0 +1,107 @@
+/* apps/admin/src/pages/Products.module.css */
+
+.page { display: flex; flex-direction: column; gap: 20px; }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 4px;
+}
+
+.count {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--black);
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  padding: 10px 20px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.addBtn:hover { background: #2a2929; }
+
+.productCell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.productImg {
+  width: 40px;
+  height: 50px;
+  flex-shrink: 0;
+}
+
+.imgBg1 { background: linear-gradient(160deg, #D0C8B8, #B0A890); }
+.imgBg2 { background: linear-gradient(160deg, #C8C4BA, #A8A49A); }
+.imgBg3 { background: linear-gradient(160deg, #C4BEB6, #9C9890); }
+.imgBg4 { background: linear-gradient(160deg, #D4CECC, #B0ACAA); }
+
+.productName {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--black);
+  margin-bottom: 2px;
+}
+
+.productCat {
+  font-size: 11px;
+  color: var(--gray-400);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.priceOld {
+  font-size: 11px;
+  color: var(--gray-400);
+  text-decoration: line-through;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.actionBtn {
+  width: 32px;
+  height: 32px;
+  border: 0.5px solid var(--gray-200);
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.actionBtn:hover {
+  border-color: var(--black);
+  color: var(--black);
+}
+
+.actionDanger:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
