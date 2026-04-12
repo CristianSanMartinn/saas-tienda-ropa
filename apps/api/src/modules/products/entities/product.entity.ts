@@ -8,22 +8,23 @@ export class Product {
   @PrimaryGeneratedColumn()
   id!: number
 
-  @Column()
+  @Column({ type: 'varchar' })
   name!: string
 
-  @Column()
+  @Column({ type: 'varchar' })
   category!: string
 
   @Column('decimal', { precision: 10, scale: 2 })
   price!: number
 
   @Column('decimal', { precision: 10, scale: 2, nullable: true })
-  priceOld!: number
+  priceOld?: number | null
 
-  @Column({ nullable: true })
-  badge!: string
+  // 🔥 FIX IMPORTANTE AQUÍ
+  @Column({ type: 'varchar', nullable: true })
+  badge?: string | null
 
-  @Column()
+  @Column({ type: 'varchar' })
   imgClass!: string
 
   @Column('simple-array')
@@ -35,10 +36,10 @@ export class Product {
   @Column('text')
   description!: string
 
-  @Column({ default: true })
+  @Column({ type: 'boolean', default: true })
   isActive!: boolean
 
-  @Column({ default: 0 })
+  @Column({ type: 'int', default: 0 })
   stock!: number
 
   @CreateDateColumn()

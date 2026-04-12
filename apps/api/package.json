@@ -6,6 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "seed:users": "ts-node -r tsconfig-paths/register database/seeds/users.seed.ts",
+    "seed:products": "ts-node -r tsconfig-paths/register database/seeds/products.seed.ts",
+    "seed:all": "npm run seed:users && npm run seed:products",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
