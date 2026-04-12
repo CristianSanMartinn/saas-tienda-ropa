@@ -1,4 +1,4 @@
-// src/pages/ProductPage.tsx
+// apps/web/src/pages/ProductPage.tsx
 
 import { useState } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
@@ -6,15 +6,11 @@ import { motion } from 'framer-motion'
 import { useCart } from '../hooks/useCart'
 import { useToast } from '../components/ui/Toast/ToastContext'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useProduct } from '../hooks/useProduct'
+import { useProducts } from '../hooks/useProducts'
 import { Button } from '../components/ui/Button/Button'
 import { ProductCard } from '../components/sections/ProductGrid/ProductCard'
-import { products } from '../data/products'
-import {
-  HiOutlineTruck,
-  HiOutlineRefresh,
-  HiOutlineCreditCard,
-  HiOutlineChevronLeft,
-} from 'react-icons/hi'
+import { HiOutlineTruck, HiOutlineRefresh, HiOutlineCreditCard, HiOutlineChevronLeft } from 'react-icons/hi'
 import styles from './ProductPage.module.css'
 
 const thumbs = [0, 1, 2]
@@ -25,22 +21,36 @@ export function ProductPage() {
   const { addItem }  = useCart()
   const { showToast } = useToast()
 
-  const product = products.find(p => p.id === Number(id))
+  const { product, loading, error } = useProduct(Number(id))
+  const { products: allProducts }   = useProducts()
 
   const [activeThumb, setActiveThumb] = useState(0)
   const [activeSize,  setActiveSize]  = useState('')
-  const [activeColor, setActiveColor] = useState(product?.colors[0] ?? { name: '', hex: '' })
+  const [activeColor, setActiveColor] = useState<{ name: string; hex: string } | null>(null)
   const [qty,         setQty]         = useState(1)
 
   const galleryRef = useScrollReveal<HTMLDivElement>()
   const infoRef    = useScrollReveal<HTMLDivElement>(100)
   const relatedRef = useScrollReveal<HTMLDivElement>()
 
-  // Producto no encontrado
-  if (!product) {
+  // Loading
+  if (loading) {
     return (
-      <div className={styles.notFound}>
-        <p className={styles.notFoundText}>Producto no encontrado</p>
+      <div style={{ padding: '80px var(--pad-x)', textAlign: 'center' }}>
+        <p style={{ color: 'var(--gray-400)', fontSize: '13px' }}>
+          Cargando producto...
+        </p>
+      </div>
+    )
+  }
+
+  // Error / Not found
+  if (error || !product) {
+    return (
+      <div style={{ padding: '80px var(--pad-x)', textAlign: 'center' }}>
+        <p style={{ color: 'var(--gray-400)', fontSize: '13px', marginBottom: '24px' }}>
+          Producto no encontrado
+        </p>
         <Button variant="outline" onClick={() => navigate('/')}>
           ← Volver al inicio
         </Button>
@@ -48,7 +58,10 @@ export function ProductPage() {
     )
   }
 
-  const related = products.filter(p => p.id !== product.id).slice(0, 4)
+  const selectedColor = activeColor ?? product.colors[0]
+  const related = allProducts
+    .filter(p => p.id !== product.id)
+    .slice(0, 4)
 
   const formatPrice = (price: number) =>
     '$' + price.toLocaleString('es-CL')
@@ -59,7 +72,7 @@ export function ProductPage() {
       return
     }
     for (let i = 0; i < qty; i++) {
-      addItem(product, activeSize, activeColor.name)
+      addItem(product, activeSize, selectedColor.name)
     }
     showToast(`${product.name} agregado al carrito`)
   }
@@ -96,7 +109,11 @@ export function ProductPage() {
             {thumbs.map(i => (
               <div
                 key={i}
-                className={`${styles.thumb} ${styles[`thumbBg${i + 1}`]} ${activeThumb === i ? styles.thumbActive : ''}`}
+                className={`
+                  ${styles.thumb}
+                  ${styles[`thumbBg${i + 1}`]}
+                  ${activeThumb === i ? styles.thumbActive : ''}
+                `}
                 onClick={() => setActiveThumb(i)}
               />
             ))}
@@ -106,7 +123,6 @@ export function ProductPage() {
         {/* Info */}
         <div ref={infoRef} className={styles.info}>
 
-          {/* Volver */}
           <button className={styles.backBtn} onClick={() => navigate(-1)}>
             <HiOutlineChevronLeft size={14} />
             Volver
@@ -115,13 +131,21 @@ export function ProductPage() {
           <p className={styles.category}>{product.category} / Nueva Colección</p>
           <h1 className={styles.name}>{product.name}</h1>
 
+          {/* Precio con priceOld y badge */}
           <div className={styles.priceRow}>
             {product.priceOld && (
-              <span className={styles.priceOld}>{formatPrice(product.priceOld)}</span>
+              <span className={styles.priceOld}>
+                {formatPrice(product.priceOld)}
+              </span>
             )}
-            <span className={styles.price}>{formatPrice(product.price)}</span>
+            <span className={styles.price}>
+              {formatPrice(product.price)}
+            </span>
             {product.badge && (
-              <span className={`${styles.badge} ${product.badge === 'Oferta' ? styles.badgeSale : ''}`}>
+              <span className={`
+                ${styles.badge}
+                ${product.badge === 'Oferta' ? styles.badgeSale : ''}
+              `}>
                 {product.badge}
               </span>
             )}
@@ -131,13 +155,16 @@ export function ProductPage() {
 
           {/* Colores */}
           <p className={styles.optionLabel}>
-            Color — <span className={styles.optionValue}>{activeColor.name}</span>
+            Color — <span className={styles.optionValue}>{selectedColor.name}</span>
           </p>
           <div className={styles.colors}>
             {product.colors.map(color => (
               <button
                 key={color.name}
-                className={`${styles.colorBtn} ${activeColor.name === color.name ? styles.colorActive : ''}`}
+                className={`
+                  ${styles.colorBtn}
+                  ${selectedColor.name === color.name ? styles.colorActive : ''}
+                `}
                 style={{ background: color.hex }}
                 onClick={() => setActiveColor(color)}
                 title={color.name}
@@ -154,7 +181,10 @@ export function ProductPage() {
             {product.sizes.map(size => (
               <button
                 key={size}
-                className={`${styles.sizeBtn} ${activeSize === size ? styles.sizeActive : ''}`}
+                className={`
+                  ${styles.sizeBtn}
+                  ${activeSize === size ? styles.sizeActive : ''}
+                `}
                 onClick={() => setActiveSize(size)}
               >
                 {size}
@@ -202,10 +232,12 @@ export function ProductPage() {
             </div>
           </div>
 
-          {/* Detalles acordeón */}
+          {/* Acordeón */}
           <div className={styles.details}>
             <details className={styles.accordion}>
-              <summary className={styles.accordionTitle}>Detalles del producto</summary>
+              <summary className={styles.accordionTitle}>
+                Detalles del producto
+              </summary>
               <div className={styles.accordionBody}>
                 <p>Material: Algodón premium 100%</p>
                 <p>Corte: Slim fit</p>
@@ -214,7 +246,9 @@ export function ProductPage() {
               </div>
             </details>
             <details className={styles.accordion}>
-              <summary className={styles.accordionTitle}>Envío y devoluciones</summary>
+              <summary className={styles.accordionTitle}>
+                Envío y devoluciones
+              </summary>
               <div className={styles.accordionBody}>
                 <p>Despacho en 2–4 días hábiles a todo Chile.</p>
                 <p>Cambios y devoluciones hasta 30 días desde la compra.</p>
@@ -240,7 +274,6 @@ export function ProductPage() {
   )
 }
 
-/* SVG por categoría */
 function ProductSvg({ category }: { category: string }) {
   const svgs: Record<string, React.ReactNode> = {
     Chaquetas: (

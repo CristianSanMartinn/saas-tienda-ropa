@@ -1,21 +1,23 @@
-// src/cart/CartDrawer/CartDrawer.tsx
+// apps/web/src/cart/CartDrawer/CartDrawer.tsx
 
 import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../../hooks/useCart'
+import { useToast } from '../../components/ui/Toast/ToastContext'
 import { Button } from '../../components/ui/Button/Button'
+import { ordersService } from '../../services/orders.service'
 import { HiOutlineX, HiOutlineShoppingBag } from 'react-icons/hi'
 import styles from './CartDrawer.module.css'
 
 interface CartDrawerProps {
-  isOpen: boolean
+  isOpen:  boolean
   onClose: () => void
 }
 
 export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
-  const { items, removeItem, totalItems, totalPrice } = useCart()
+  const { items, removeItem, totalItems, totalPrice, clearCart } = useCart()
+  const { showToast } = useToast()
 
-  // Bloquear scroll cuando está abierto
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
@@ -23,6 +25,26 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
   const formatPrice = (price: number) =>
     '$' + price.toLocaleString('es-CL')
+
+  const handleCheckout = async () => {
+    try {
+      const payload = {
+        items: items.map(item => ({
+          productId: item.product.id,
+          size:      item.size,
+          color:     item.color,
+          quantity:  item.quantity,
+        })),
+      }
+      await ordersService.create(payload)
+      clearCart()
+      onClose()
+      showToast('¡Orden creada exitosamente!')
+    } catch (err) {
+      console.error(err)
+      showToast('Error al crear la orden')
+    }
+  }
 
   return (
     <AnimatePresence>
@@ -65,7 +87,9 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <div className={styles.empty}>
                   <HiOutlineShoppingBag size={40} className={styles.emptyIcon} />
                   <p className={styles.emptyText}>Tu carrito está vacío</p>
-                  <p className={styles.emptySubtext}>Agrega productos para continuar</p>
+                  <p className={styles.emptySubtext}>
+                    Agrega productos para continuar
+                  </p>
                 </div>
               ) : (
                 <div className={styles.items}>
@@ -105,11 +129,12 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <p className={styles.shippingNote}>
                   Envío calculado al finalizar la compra
                 </p>
-                <Button variant="primary" fullWidth>
+                <Button variant="primary" fullWidth onClick={handleCheckout}>
                   Finalizar Compra →
                 </Button>
               </div>
             )}
+
           </motion.div>
         </>
       )}
