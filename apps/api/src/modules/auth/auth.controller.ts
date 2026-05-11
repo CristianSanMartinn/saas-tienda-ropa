@@ -21,6 +21,6 @@ import { RegisterDto } from './dto/register.dto'
 
     @Get('test')
     test() {
-        return { message: 'Auth funcionando 🚀' }
+        return { message: 'Auth funcionando ' }
 }
 }

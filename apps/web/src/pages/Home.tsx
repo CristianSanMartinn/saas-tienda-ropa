@@ -11,7 +11,7 @@ import { Newsletter }    from '../components/sections/Newsletter/Newsletter'
 export function Home() {
   return (
     <>
-      <Hero />
+      <Hero />        
       <Categories />
       <ProductGrid />
       <ProductDetail />

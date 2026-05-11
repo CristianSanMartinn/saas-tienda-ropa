@@ -1,5 +1,4 @@
 // apps/api/src/modules/products/entities/product.entity.ts
-//ENTIDAD
 
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm'
 
@@ -20,7 +19,6 @@ export class Product {
   @Column('decimal', { precision: 10, scale: 2, nullable: true })
   priceOld?: number | null
 
-  // 🔥 FIX IMPORTANTE AQUÍ
   @Column({ type: 'varchar', nullable: true })
   badge?: string | null
 
@@ -35,6 +33,12 @@ export class Product {
 
   @Column('text')
   description!: string
+
+  // ← Campo nuevo: arreglo de rutas de imágenes
+  // jsonb permite guardar un array de strings en PostgreSQL
+  // default [] para que no falle si no tiene imágenes
+  @Column({ type: 'jsonb', default: [] })
+  images!: string[]
 
   @Column({ type: 'boolean', default: true })
   isActive!: boolean

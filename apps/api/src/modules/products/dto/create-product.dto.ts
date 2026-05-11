@@ -34,6 +34,11 @@ export class CreateProductDto {
     @IsString()
     description!: string
 
+    // ← Campo nuevo: rutas de imágenes
+    @IsOptional()
+    @IsArray()
+    images?: string[]
+
     @IsOptional()
     @IsBoolean()
     isActive?: boolean
@@ -41,5 +46,4 @@ export class CreateProductDto {
     @IsOptional()
     @IsNumber()
     stock?: number
-
 }

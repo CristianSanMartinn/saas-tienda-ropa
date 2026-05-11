@@ -2,13 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  HiOutlineSearch,
-  HiOutlineUser,
-  HiOutlineShoppingBag,
-  HiMenu,
-  HiX,
-} from "react-icons/hi";
+import { HiOutlineSearch, HiOutlineUser, HiOutlineShoppingBag, HiMenu, HiX } from "react-icons/hi";
 
 import { useCart } from "../../../hooks/useCart";
 import styles from "./Navbar.module.css";
@@ -59,7 +53,7 @@ export function Navbar({ onCartOpen }: NavbarProps) {
       <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`}>
         {/* Logo */}
         <Link to="/" className={styles.logo}>
-          MASC
+          rap_ratcl
         </Link>
 
         {/* Links desktop */}

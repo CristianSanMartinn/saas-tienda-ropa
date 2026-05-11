@@ -11,6 +11,9 @@ export interface Product {
   sizes: string[]
   colors: Color[]
   description: string
+  images: string[]   // ← arreglo de rutas de imágenes reales
+                     //   images[0] = imagen principal
+                     //   images[1], [2]... = imágenes de galería
 }
 
 export interface Color {

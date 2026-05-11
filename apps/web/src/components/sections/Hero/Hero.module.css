@@ -8,17 +8,24 @@
   overflow: hidden;
 }
 
-/* Columna imagen */
+/* ── Columna imagen ─────────────────────────────────────────────────────────── */
 .imageCol {
-  background: linear-gradient(160deg, #D4C8B5 0%, #B8A990 100%);
-  position: relative;
+  position: relative;                 /* necesario para que los hijos absolute funcionen */
   overflow: hidden;
   min-height: 480px;
+  /* sin background fijo: la imagen lo cubrirá todo */
 }
 
+/* La imagen del slider se posiciona absolute dentro de imageCol      */
+/* El objectFit: cover en el TSX hace que cubra sin deformarse         */
+/* El objectPosition: top enfoca la parte superior (cabeza/torso)      */
+
+/* Patrón decorativo — encima de la imagen, no la tapa */
 .pattern {
   position: absolute;
   inset: 0;
+  z-index: 1;                         /* encima de la imagen */
+  pointer-events: none;               /* no bloquea clics */
   background: repeating-linear-gradient(
     45deg,
     transparent,
@@ -28,24 +35,48 @@
   );
 }
 
-.silhouette {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* Gradiente oscuro en la parte inferior */
 .overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   height: 40%;
-  background: linear-gradient(to top, rgba(184, 169, 144, 0.4), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+  z-index: 2;                         /* encima del patrón */
+  pointer-events: none;
 }
 
-/* Contenido */
+/* ── Puntos del slider ──────────────────────────────────────────────────────── */
+.dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;                        /* encima de todo */
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+/* Punto activo: se alarga y se pone más brillante */
+.dotActive {
+  width: 22px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* ── Contenido (columna derecha) ────────────────────────────────────────────── */
 .content {
   padding: 80px 56px;
   display: flex;
@@ -104,7 +135,7 @@
   flex-wrap: wrap;
 }
 
-/* Responsive */
+/* ── Responsive ─────────────────────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
@@ -112,7 +143,7 @@
   }
 
   .imageCol {
-    min-height: 50vw;
+    min-height: 60vw;                 /* altura proporcional en tablet */
   }
 
   .content {
@@ -121,7 +152,29 @@
 }
 
 @media (max-width: 540px) {
+  .imageCol {
+    min-height: 75vw;                 /* más alto en móvil para que se vea bien */
+  }
+
   .ctas {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 400px) {
+  .title {
+    font-size: clamp(32px, 8vw, 44px);
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .imageCol {
+    min-height: 100vw;                /* casi cuadrado en móvil pequeño */
+  }
+
+  .content {
+    padding: 32px 16px;
   }
 }

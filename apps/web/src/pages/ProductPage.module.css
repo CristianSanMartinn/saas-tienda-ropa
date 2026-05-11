@@ -22,9 +22,7 @@
   text-decoration: none;
 }
 
-.breadcrumbLink:hover {
-  color: var(--black);
-}
+.breadcrumbLink:hover { color: var(--black); }
 
 .breadcrumbSep {
   color: var(--gray-300);
@@ -47,19 +45,30 @@
   margin-bottom: 80px;
 }
 
-/* Galería */
+/* ── Galería ─────────────────────────────────────────────────────────────── */
 .gallery {}
 
+/* Contenedor imagen principal */
 .mainImg {
   aspect-ratio: 3 / 4;
-  background: linear-gradient(160deg, #CFC9BC, #ADA69A);
+  background: linear-gradient(160deg, #CFC9BC, #ADA69A); /* fallback si no carga */
   margin-bottom: 12px;
+  position: relative;          /* ← necesario para que .mainImgReal sea absolute */
+  overflow: hidden;             /* ← recorta la imagen al tamaño del contenedor  */
+  cursor: zoom-in;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
-  cursor: zoom-in;
+}
+
+/* Imagen principal real */
+.mainImgReal {
+  position: absolute;          /* ← cubre todo el .mainImg */
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* ← llena sin deformar */
+  object-position: top;        /* ← enfoca parte superior (cabeza/torso) */
 }
 
 .zoomHint {
@@ -74,12 +83,12 @@
   color: var(--gray-600);
   opacity: 0;
   transition: opacity 0.2s;
+  z-index: 2;                  /* ← encima de la imagen */
 }
 
-.mainImg:hover .zoomHint {
-  opacity: 1;
-}
+.mainImg:hover .zoomHint { opacity: 1; }
 
+/* ── Thumbnails ──────────────────────────────────────────────────────────── */
 .thumbs {
   display: flex;
   gap: 8px;
@@ -92,20 +101,31 @@
   border: 0.5px solid transparent;
   transition: border-color 0.2s;
   flex-shrink: 0;
+  position: relative;          /* ← necesario para contener .thumbImgReal */
+  overflow: hidden;             /* ← recorta la imagen al tamaño del thumb  */
+  background: linear-gradient(160deg, #CFC9BC, #ADA69A); /* fallback */
 }
 
-.thumbActive {
-  border-color: var(--black);
+.thumbActive { border-color: var(--black); }
+
+/* Imagen real del thumbnail */
+.thumbImgReal {
+  position: absolute;          /* ← cubre todo el .thumb */
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
 }
 
+/* Fondos de respaldo (se ven si la imagen no carga) */
 .thumbBg1 { background: linear-gradient(160deg, #CFC9BC, #ADA69A); }
 .thumbBg2 { background: linear-gradient(160deg, #C4BEBC, #A29E9C); }
 .thumbBg3 { background: linear-gradient(160deg, #D0C8C0, #B0A8A0); }
 
-/* Info */
-.info {
-  padding-top: 8px;
-}
+/* ── Info ────────────────────────────────────────────────────────────────── */
+.info { padding-top: 8px; }
 
 .backBtn {
   display: inline-flex;
@@ -124,9 +144,7 @@
   transition: color 0.2s;
 }
 
-.backBtn:hover {
-  color: var(--black);
-}
+.backBtn:hover { color: var(--black); }
 
 .category {
   font-size: 10px;
@@ -173,9 +191,7 @@
   text-transform: uppercase;
 }
 
-.badgeSale {
-  background: #8B6B4A;
-}
+.badgeSale { background: #8B6B4A; }
 
 .desc {
   font-size: 13px;
@@ -187,7 +203,6 @@
   padding-top: 20px;
 }
 
-/* Opciones */
 .optionLabel {
   font-size: 10px;
   letter-spacing: 2px;
@@ -245,9 +260,7 @@
   transition: color 0.2s;
 }
 
-.sizeGuide:hover {
-  color: var(--black);
-}
+.sizeGuide:hover { color: var(--black); }
 
 .sizes {
   display: flex;
@@ -277,7 +290,6 @@
   background: var(--gray-100);
 }
 
-/* Cantidad */
 .qtyRow {
   display: flex;
   gap: 12px;
@@ -303,9 +315,7 @@
   transition: color 0.15s;
 }
 
-.qtyBtn:hover {
-  color: var(--black);
-}
+.qtyBtn:hover { color: var(--black); }
 
 .qtyNum {
   width: 40px;
@@ -314,7 +324,6 @@
   color: var(--black);
 }
 
-/* Trust */
 .trust {
   display: flex;
   gap: 20px;
@@ -338,12 +347,9 @@
   flex-shrink: 0;
 }
 
-/* Acordeón */
 .details {}
 
-.accordion {
-  border-bottom: 0.5px solid var(--gray-200);
-}
+.accordion { border-bottom: 0.5px solid var(--gray-200); }
 
 .accordionTitle {
   font-size: 11px;
@@ -360,21 +366,16 @@
   font-weight: 400;
 }
 
-.accordionTitle::-webkit-details-marker {
-  display: none;
-}
+.accordionTitle::-webkit-details-marker { display: none; }
 
 .accordionTitle::after {
   content: '+';
   font-size: 18px;
   font-weight: 300;
   color: var(--gray-400);
-  transition: transform 0.2s;
 }
 
-details[open] .accordionTitle::after {
-  content: '−';
-}
+details[open] .accordionTitle::after { content: '−'; }
 
 .accordionBody {
   padding: 0 0 16px;
@@ -416,23 +417,6 @@ details[open] .accordionTitle::after {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-}
-
-/* Not found */
-.notFound {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 50vh;
-  gap: 24px;
-}
-
-.notFoundText {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 300;
-  color: var(--gray-400);
 }
 
 /* Responsive */
