@@ -31,6 +31,9 @@ export function Navbar({ onCartOpen }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // para el menú de usuario (no implementado aún)
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
 
@@ -48,12 +51,14 @@ export function Navbar({ onCartOpen }: NavbarProps) {
     };
   }, [mobileOpen]);
 
+
+
   return (
     <>
       <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`}>
         {/* Logo */}
         <Link to="/" className={styles.logo}>
-          rap_ratcl
+          RAP_RATCL
         </Link>
 
         {/* Links desktop */}
@@ -101,8 +106,23 @@ export function Navbar({ onCartOpen }: NavbarProps) {
 
         {/* Íconos */}
         <div className={styles.icons}>
+
+
+
+          {/*
+          Icono de búsqueda (no implementado aún)
+          cuando la pagina cresca se puede implementar una barra de búsqueda desplegable
           <HiOutlineSearch size={20} />
-          <HiOutlineUser size={20} />
+          */}
+
+          {/*BOTON DE USUARIO*/}
+          <div
+            className={styles.userBtn}
+            onClick={() => setUserMenuOpen(true)}
+          >
+            <HiOutlineUser size={20} />
+          </div>
+          
 
           {/* BOTÓN CARRITO */}
           <div className={styles.cartBtn} onClick={onCartOpen}>
@@ -141,6 +161,49 @@ export function Navbar({ onCartOpen }: NavbarProps) {
           </Link>
         ))}
       </div>
+
+      {/* PANEL USUARIO */}
+      <div
+        className={`${styles.userPanel} ${
+          userMenuOpen ? styles.userPanelOpen : ""
+        }`}
+      >
+        <div>
+
+        </div>
+        <div className={styles.userPanelHeader}>
+          <h3>Mi cuenta</h3>
+      
+          <button
+            onClick={() => setUserMenuOpen(false)}
+            className={styles.closeBtn}
+          >
+            <HiX size={22} />
+          </button>
+        </div>
+      
+        <div className={styles.userPanelContent}>
+          <p className={styles.userText}>
+            Inicia sesión para acceder a tus compras y favoritos.
+          </p>
+      
+          <button className={styles.loginBtn}>
+            Iniciar sesión
+          </button>
+      
+          <button className={styles.registerBtn}>
+            Crear cuenta
+          </button>
+        </div>
+      </div>
+      
+      {/* OVERLAY */}
+      {userMenuOpen && (
+        <div
+          className={styles.overlay}
+          onClick={() => setUserMenuOpen(false)}
+        />
+      )}
     </>
   );
 }

@@ -126,6 +126,15 @@
   flex: 1;
 }
 
+.itemImg {
+  width: 84px;
+  height: 108px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  background: var(--gray-100);
+}
+
 .itemName {
   font-family: var(--font-display);
   font-size: 17px;

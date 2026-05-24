@@ -11,12 +11,30 @@ export function Newsletter() {
   const { showToast } = useToast()
   const ref = useScrollReveal<HTMLElement>()
 
+  // Validación simple de email
+  const isEmailValid = (value: string) => {
+    return /\S+@\S+\.\S+/.test(value)
+  }
+
   const handleSubmit = () => {
-    if (!email || !email.includes('@')) {
+    const cleanEmail = email.trim()
+
+    // Campo vacío
+    if (!cleanEmail) {
+      showToast('El campo email está vacío')
+      return
+    }
+
+    // Email inválido
+    if (!isEmailValid(cleanEmail)) {
       showToast('Ingresa un email válido')
       return
     }
-    showToast('¡Bienvenido a la comunidad MASC!')
+
+    // Simulación de envío
+    showToast('¡Bienvenido a la comunidad RAP_RATCL!')
+
+    // Vaciar input
     setEmail('')
   }
 
@@ -28,7 +46,10 @@ export function Newsletter() {
           <HiOutlineMail size={18} />
         </div>
 
-        <h3 className={styles.title}>Únete a la comunidad MASC</h3>
+        <h3 className={styles.title}>
+          Únete a la comunidad RAP_RATCL
+        </h3>
+
         <p className={styles.desc}>
           Accede primero a nuevos lanzamientos, ofertas exclusivas
           y contenido editorial. Sin spam, solo estilo.
@@ -40,16 +61,21 @@ export function Newsletter() {
             type="email"
             placeholder="tu@email.com"
             value={email}
-            onChange={e => setEmail(e.target.value)}
-            onKeyDown={e => e.key === 'Enter' && handleSubmit()}
+            onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
           />
-          <button className={styles.btn} onClick={handleSubmit}>
+
+          <button
+            className={styles.btn}
+            onClick={handleSubmit}
+          >
             Suscribir
           </button>
         </div>
 
         <p className={styles.note}>
-          Al suscribirte aceptas recibir correos de MASC. Puedes cancelar cuando quieras.
+          Al suscribirte aceptas recibir correos de RAP_RATCL.
+          Puedes cancelar cuando quieras.
         </p>
       </div>
     </section>

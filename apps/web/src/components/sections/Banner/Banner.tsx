@@ -9,7 +9,7 @@ export function Banner() {
 
   return (
     <section ref={ref} className={styles.banner}>
-      <span className={styles.bgText}>MASC</span>
+      <span className={styles.bgText}>RAP_RATCL</span>
       <div>
         <p className={styles.label}>Exclusivo</p>
         <h3 className={styles.title}>Colección Limitada<br />Otoño 2025</h3>

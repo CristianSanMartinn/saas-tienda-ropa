@@ -16,7 +16,7 @@ export function Footer() {
 
         {/* Brand */}
         <div className={styles.brand}>
-          <p className={styles.logo}>MASC</p>
+          <p className={styles.logo}>RAP_RATCL</p>
           <p className={styles.desc}>
             Moda masculina contemporánea. Diseñada para el hombre que valora
             la calidad, el detalle y el estilo sin esfuerzo.
@@ -42,7 +42,7 @@ export function Footer() {
       </div>
 
       <div className={styles.bottom}>
-        <p>© 2025 MASC. Todos los derechos reservados.</p>
+        <p>© 2025 RAP_RATCL. Todos los derechos reservados.</p>
         <div className={styles.payments}>
           {['Visa', 'Mastercard', 'Webpay', 'Mercado Pago'].map(p => (
             <span key={p} className={styles.payBadge}>{p}</span>
