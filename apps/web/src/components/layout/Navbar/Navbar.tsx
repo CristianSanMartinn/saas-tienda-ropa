@@ -1,100 +1,79 @@
-// src/components/layout/Navbar/Navbar.tsx
+// apps/web/src/components/layout/Navbar/Navbar.tsx
 
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { HiOutlineSearch, HiOutlineUser, HiOutlineShoppingBag, HiMenu, HiX } from "react-icons/hi";
-
-import { useCart } from "../../../hooks/useCart";
-import styles from "./Navbar.module.css";
+import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import {
+  HiOutlineUser, HiOutlineShoppingBag,
+  HiMenu, HiX,
+} from 'react-icons/hi'
+import { useCart } from '../../../hooks/useCart'
+import { useAuth } from '../../../auth/AuthContext'
+import { AuthPanel } from '../../../auth/AuthPanel/AuthPanel'
+import styles from './Navbar.module.css'
 
 interface NavbarProps {
-  onCartOpen: () => void;
+  onCartOpen: () => void
 }
 
 const navItems = [
   {
-    label: "Camisas",
-    sub: ["Oxford Clásica", "Lino Premium", "Flanela Suave", "Manga Corta"],
+    label: 'Camisas',
+    sub: ['Oxford Clásica', 'Lino Premium', 'Flanela Suave', 'Manga Corta'],
   },
   {
-    label: "Poleras",
-    sub: ["Cuello redondo", "Cuello V", "Polo", "Henley"],
+    label: 'Poleras',
+    sub: ['Cuello redondo', 'Cuello V', 'Polo', 'Henley'],
   },
-  { label: "Pantalones", sub: [] },
-  { label: "Chaquetas", sub: [] },
-  { label: "Accesorios", sub: [] },
-];
+  { label: 'Pantalones', sub: [] },
+  { label: 'Chaquetas',  sub: [] },
+  { label: 'Accesorios', sub: [] },
+]
 
 export function Navbar({ onCartOpen }: NavbarProps) {
-  const { totalItems } = useCart();
+  const { totalItems }    = useCart()
+  const { isLogged, user } = useAuth()
 
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  // para el menú de usuario (no implementado aún)
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [scrolled,    setScrolled]    = useState(false)
+  const [mobileOpen,  setMobileOpen]  = useState(false)
+  const [authOpen,    setAuthOpen]    = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener('scroll', onScroll)
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
-    window.addEventListener("scroll", onScroll);
-
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // bloquear scroll cuando el menú móvil está abierto
   useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileOpen]);
-
-
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
 
   return (
     <>
-      <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`}>
+      <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`}>
+
         {/* Logo */}
-        <Link to="/" className={styles.logo}>
-          RAP_RATCL
-        </Link>
+        <Link to="/" className={styles.logo}>RAP_RATCL</Link>
 
         {/* Links desktop */}
         <div className={styles.center}>
-          {navItems.map((item) => (
+          {navItems.map(item => (
             <div key={item.label} className={styles.navItem}>
               <span>{item.label}</span>
-
               {item.sub.length > 0 && (
                 <div className={styles.megaMenu}>
                   <div className={styles.megaCol}>
                     <h4 className={styles.megaTitle}>Colección</h4>
-
-                    {item.sub.map((s) => (
-                      <Link key={s} to="/" className={styles.megaLink}>
-                        {s}
-                      </Link>
+                    {item.sub.map(s => (
+                      <Link key={s} to="/" className={styles.megaLink}>{s}</Link>
                     ))}
                   </div>
-
                   <div className={styles.megaCol}>
                     <h4 className={styles.megaTitle}>Ocasión</h4>
-
-                    <Link to="/" className={styles.megaLink}>
-                      Formal
-                    </Link>
-
-                    <Link to="/" className={styles.megaLink}>
-                      Business Casual
-                    </Link>
-
-                    <Link to="/" className={styles.megaLink}>
-                      Fin de semana
-                    </Link>
+                    <Link to="/" className={styles.megaLink}>Formal</Link>
+                    <Link to="/" className={styles.megaLink}>Business Casual</Link>
+                    <Link to="/" className={styles.megaLink}>Fin de semana</Link>
                   </div>
-
                   <div className={styles.megaImg}>
                     <span className={styles.megaImgLabel}>Lo nuevo</span>
                   </div>
@@ -107,35 +86,32 @@ export function Navbar({ onCartOpen }: NavbarProps) {
         {/* Íconos */}
         <div className={styles.icons}>
 
-
-
-          {/*
-          Icono de búsqueda (no implementado aún)
-          cuando la pagina cresca se puede implementar una barra de búsqueda desplegable
-          <HiOutlineSearch size={20} />
-          */}
-
-          {/*BOTON DE USUARIO*/}
+          {/* Ícono usuario — muestra inicial si está logueado */}
           <div
             className={styles.userBtn}
-            onClick={() => setUserMenuOpen(true)}
+            onClick={() => setAuthOpen(true)}
           >
-            <HiOutlineUser size={20} />
+            {isLogged && user ? (
+              <div className={styles.userInitial}>
+                {user.name.charAt(0).toUpperCase()}
+              </div>
+            ) : (
+              <HiOutlineUser size={20} />
+            )}
           </div>
-          
 
-          {/* BOTÓN CARRITO */}
+          {/* Carrito */}
           <div className={styles.cartBtn} onClick={onCartOpen}>
             <HiOutlineShoppingBag size={20} />
-
             {totalItems > 0 && (
               <span className={styles.cartCount}>{totalItems}</span>
             )}
           </div>
 
+          {/* Hamburger */}
           <button
             className={styles.hamburger}
-            onClick={() => setMobileOpen((o) => !o)}
+            onClick={() => setMobileOpen(o => !o)}
             aria-label="Menú"
           >
             {mobileOpen ? <HiX size={22} /> : <HiMenu size={22} />}
@@ -144,11 +120,7 @@ export function Navbar({ onCartOpen }: NavbarProps) {
       </nav>
 
       {/* Menú móvil */}
-      <div
-        className={`${styles.mobileMenu} ${
-          mobileOpen ? styles.mobileOpen : ""
-        }`}
-      >
+      <div className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileOpen : ''}`}>
         {navItems.map((item, i) => (
           <Link
             key={item.label}
@@ -162,48 +134,11 @@ export function Navbar({ onCartOpen }: NavbarProps) {
         ))}
       </div>
 
-      {/* PANEL USUARIO */}
-      <div
-        className={`${styles.userPanel} ${
-          userMenuOpen ? styles.userPanelOpen : ""
-        }`}
-      >
-        <div>
-
-        </div>
-        <div className={styles.userPanelHeader}>
-          <h3>Mi cuenta</h3>
-      
-          <button
-            onClick={() => setUserMenuOpen(false)}
-            className={styles.closeBtn}
-          >
-            <HiX size={22} />
-          </button>
-        </div>
-      
-        <div className={styles.userPanelContent}>
-          <p className={styles.userText}>
-            Inicia sesión para acceder a tus compras y favoritos.
-          </p>
-      
-          <button className={styles.loginBtn}>
-            Iniciar sesión
-          </button>
-      
-          <button className={styles.registerBtn}>
-            Crear cuenta
-          </button>
-        </div>
-      </div>
-      
-      {/* OVERLAY */}
-      {userMenuOpen && (
-        <div
-          className={styles.overlay}
-          onClick={() => setUserMenuOpen(false)}
-        />
-      )}
+      {/* Auth Panel */}
+      <AuthPanel
+        isOpen={authOpen}
+        onClose={() => setAuthOpen(false)}
+      />
     </>
-  );
+  )
 }

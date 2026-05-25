@@ -11,11 +11,12 @@ async function seedUsers() {
     
     const userRepo = AppDataSource.getRepository(User)
 
+    // Usuarios a insertar
     const users = [
         {
             name:     'Admin MASC',
-            email:    'admin@masc.cl',
-            password: await bcrypt.hash('admin123', 10),
+            email:    'admin@gmail.com',
+            password: await bcrypt.hash('admin1234', 10),
             role:     UserRole.ADMIN,
         },
         {
@@ -38,6 +39,7 @@ async function seedUsers() {
         },
     ]
 
+    // Insertar usuarios si no existen
     for (const userData of users) {
         const exists = await userRepo.findOne({ where: { email: userData.email } })
         
